@@ -25,8 +25,38 @@ first_rotor = {
     'w': 'd',
     'x': 'c',
     'y': 'b',
-    'z': 'a'
+    'z': 'a',
+    ' ': ' '
     }
+second_rotor = {
+  'a': 'm',
+  'b': 'g',
+  'c': 'l',
+  'd': 'p',
+  'e': 'o', 
+  'f': 'j',
+  'g': 'u',
+  'h': 'q',
+  'i': 'k',
+  'j': 'c',
+  'k': 'n',
+  'l': 'y',
+  'm': 'z',
+  'n': 'h',
+  'o': 'w',
+  'p': 'f',
+  'q': 'a',
+  'r': 'x',
+  's': 'e',
+  't': 'd',
+  'u': 'r',
+  'v': 'b',
+  'w': 'i',
+  'x': 't',
+  'y': 'v',
+  'z': 's',
+  ' ': ' '
+}
 
 def shift_rotor(rotor_state):
     new_position = {}
@@ -42,11 +72,17 @@ def shift_rotor(rotor_state):
 
 
 
-def encode_string(text, first_rotor):
+def encode_string(text, first_rotor, second_rotor):
     encoded = ''
+    count = 0
+
     for char in text:
-        encoded += first_rotor[char]
+        first_rotor_output = first_rotor[char]
+        encoded += second_rotor[first_rotor_output]
         first_rotor = shift_rotor(first_rotor)
+        count +=1
+        if count % 27 == 0:
+            shift_rotor(second_rotor)
     return encoded
         
-print(encode_string('aaaaa', first_rotor))
+print(encode_string('hello world and all the loveley people out there this is a prototype enigmna code with just two rotors and no reflector or plugpanel', first_rotor, second_rotor))
